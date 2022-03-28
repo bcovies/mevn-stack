@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  node-api:
+    image: node-api
+    build: .
+    # dev
+    tty: true
+    ports:
+      - 30000:80
+    volumes:
+      - ./node:/node/api

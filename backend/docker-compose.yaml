@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  node-api:
+    image: node-api
+    build: .
+    tty: true
+    ports:
+      - 30001:8080
+
