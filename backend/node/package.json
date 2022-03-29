@@ -2,8 +2,9 @@
   "name": "mern-stack",
   "version": "0.0.1",
   "description": "Projeto inicial para estudo da stack MERN.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "startdev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/bcovies/mern-stack/issues"
   },
-  "homepage": "https://github.com/bcovies/mern-stack#readme"
+  "homepage": "https://github.com/bcovies/mern-stack#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }

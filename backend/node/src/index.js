@@ -1,11 +1,11 @@
 const http = require('http');
+const serverConfigs = require('./configs/serverConfigs');
 
-const hostname = '127.0.0.1';
-const port = 8080;
+const hostname = serverConfigs.configurations.hostname;
+const port = serverConfigs.configurations.port;
 
 const server = http.createServer((req,res) => {
 
-  fs.
   res.statusCode = 200;
   res.setHeader('Content-Type','text/plain');
 
