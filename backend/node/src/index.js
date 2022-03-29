@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const serverConfigs = require('./configs/serverConfigs');
 const bodyParser = require('body-parser');
 const hostname = serverConfigs.configurations.hostname;
