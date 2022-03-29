@@ -6,14 +6,14 @@ const hostname = serverConfigs.configurations.hostname;
 const port = serverConfigs.configurations.port;
 const app = express();
 
-app.use(bodyParser.json);
+// app.use(bodyParser.json);
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello, World!!');
 });
 
 app.get('/:id', (req,res) => {

@@ -4,7 +4,7 @@
   "description": "Projeto inicial para estudo da stack MERN.",
   "main": "src/index.js",
   "scripts": {
-    "startdev": "nodemon src/index.js",
+    "startDev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
