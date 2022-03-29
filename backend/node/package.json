@@ -1,0 +1,22 @@
+{
+  "name": "mern-stack",
+  "version": "0.0.1",
+  "description": "Projeto inicial para estudo da stack MERN.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcovies/mern-stack.git"
+  },
+  "keywords": [
+    "mern"
+  ],
+  "author": "Bruno Souto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcovies/mern-stack/issues"
+  },
+  "homepage": "https://github.com/bcovies/mern-stack#readme"
+}

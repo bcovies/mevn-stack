@@ -1,20 +1,17 @@
-var express = require('express')
-var app = express()
-var port = 3000
-var user = require('./Routes/userRoutes')
-var multer = require('multer');
-var upload = multer();
+const http = require('http');
 
-// for parsing application/json
-app.use(express.json())
-// for parsing application/x-www-form-urlencoded
-app.use(express.urlencoded({extended: true}))
-// for parsing multipart/form-data
-app.use(upload.array()); 
-app.use(express.static('public'));
+const hostname = '127.0.0.1';
+const port = 8080;
 
-app.use('/user', user)
+const server = http.createServer((req,res) => {
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  fs.
+  res.statusCode = 200;
+  res.setHeader('Content-Type','text/plain');
+
+  res.end('Hello, World!');
+});
+
+server.listen(port, hostname, ()=> {
+  console.log(`Servidor ${hostname} na porta ${port} Online!`);
+});
