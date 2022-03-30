@@ -1,4 +1,6 @@
+require('dotenv').config({ path: 'src/configs/.env' });
+
 exports.configurations = {
-    hostname: "127.0.0.1",
-    port: "8080"
+    hostname: process.env.NODE_HOST,
+    port: process.env.NODE_PORT
 };

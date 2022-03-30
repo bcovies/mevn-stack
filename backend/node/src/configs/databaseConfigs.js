@@ -1,6 +1,8 @@
+require('dotenv').config({ path: 'src/configs/.env' });
+
 exports.databaseConfigurations = {
-    hostname: "mongo",
-    user: "root",
-    password: "root",
-    port: "27017"
+    hostname: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT
 };
