@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
     config.vm.define "mernStack" do |mernStack|
+        mernStack.vbguest.auto_update = false
         mernStack.vm.box = "debian/bullseye64"
         mernStack.vm.synced_folder ".", "/vagrant", disabled: true
         mernStack.vm.network "public_network", ip: "192.168.2.40"

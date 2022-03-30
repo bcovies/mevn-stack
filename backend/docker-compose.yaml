@@ -1,5 +1,7 @@
 version: '3.3'
 
+volumes:
+  mongo:
 services:
   backend:
     image: mern-stack
@@ -9,3 +11,11 @@ services:
       - 8080:8080
     volumes:
       - ./node/src:/opt/mern-stack/src
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongo:/data/db
