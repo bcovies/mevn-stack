@@ -8,4 +8,4 @@ RUN npm install
 
 COPY ./node/src ./src
 
-# CMD [ "npm", "run", "startDev"]
+CMD [ "npm", "run", "startDev"]
