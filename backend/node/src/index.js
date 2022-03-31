@@ -1,50 +1,22 @@
+//GLOBAL IMPORTS
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+//CONFIGS IMPORTS
 const serverConfigs = require('./configs/serverConfigs');
-const databaseConfigs = require('./configs/databaseConfigs');
-const User = require('./models/userSchema');
-
 const hostname = serverConfigs.configurations.hostname;
 const port = serverConfigs.configurations.port;
-
-const db_host = databaseConfigs.databaseConfigurations.hostname;
-const db_user = databaseConfigs.databaseConfigurations.user;
-const db_pass = databaseConfigs.databaseConfigurations.password;
-const db_port = databaseConfigs.databaseConfigurations.port;
-const db_dbs = databaseConfigs.databaseConfigurations.dbs;
+//ROUTES IMPORTS
+const user = require('./routes/userRouter');
+const main = require('./routes/mainRouter');
 
 const app = express();
-
-mongoose.connect(`mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_dbs}`).then(function(){
-  console.log(`Connected with:${db_user}:${db_pass}@${db_host}:${db_port}/${db_dbs}`);
-}).catch((err)=>{
-  console.log(`${err}`);
-});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!!');
-});
-
-app.get('/:id', (req,res) => {
-  res.send(req.params.id);
-});
-
-app.post('/user/signup', (req,res) => {
-  const data = new User({
-    email: req.body.email,
-    password: req.body.password,
-    dob: req.body.dob,
-    phone: req.body.phone 
-  });
-  data.save();
-  res.send(`User registred: ${data}`);
-});
+app.use('/user', user);
+app.use('/', main);
 
 app.listen(port, () => {
   console.log(`Server ${hostname}:${port} Online!`);
