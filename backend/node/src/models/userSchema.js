@@ -5,7 +5,6 @@ const userSchema = Schema({
     email:String,
     password:String,
     dbo:String,
-    name:String,
     phone:String
 },{colections:'users'});
 

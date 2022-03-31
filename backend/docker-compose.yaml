@@ -4,19 +4,23 @@ volumes:
   mongo:
 services:
   backend:
+    depends_on: 
+      - mongo
     image: mern-stack
     build: .
     # tty: true
     ports:
       - 8080:8080
     volumes:
-      - ./node/src:/opt/mern-stack/src
+      - ./node/src:/opt/mern-stack/src:rw
   mongo:
     image: mongo
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
       MONGO_INITDB_DATABASE: mernStack
+      MONGO_INITDB_USERNAME: mernUser
+      MONGO_INITDB_PASSWORD: mernPassword      
     volumes:
-      - mongo:/data/db
+      - mongo:/data/db:rw
+      - ./init-mongodb.js:/docker-entrypoint-initdb.d/init-mongodb.js:ro
