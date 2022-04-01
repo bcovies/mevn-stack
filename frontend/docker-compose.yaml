@@ -1,11 +1,9 @@
 version: '3.9'
 services:
-  node-api:
-    image: node-api
+  frontend:
+    image: frontend
     build: .
-    # dev
-    tty: true
     ports:
-      - 30000:80
+      - 80:80
     volumes:
-      - ./node:/node/api
+      - ./node:/node/frontend

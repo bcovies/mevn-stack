@@ -4,15 +4,14 @@ volumes:
   mongo:
 services:
   backend:
+    image: backend
+    build: .
     depends_on: 
       - mongo
-    image: mern-stack
-    build: .
-    # tty: true
     ports:
       - 8080:8080
     volumes:
-      - ./node/src:/opt/mern-stack/src:rw
+      - ./node/src:/opt/backend/src:rw
   mongo:
     image: mongo
     environment:

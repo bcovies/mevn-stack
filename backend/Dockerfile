@@ -1,6 +1,6 @@
 FROM node:17
 
-WORKDIR /opt/mern-stack
+WORKDIR /opt/backend
 
 COPY ./node/package* ./
 
