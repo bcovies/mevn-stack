@@ -1,6 +1,6 @@
 FROM node:17
 
-WORKDIR /opt/mern-stack
+WORKDIR /opt/frontend
 
 COPY ./node/package* ./
 
@@ -8,4 +8,6 @@ RUN npm install
 
 COPY ./node/src ./src
 
-CMD [ "npm", "run", "startDev"]
+COPY ./node/public ./public
+
+CMD [ "npm", "run", "start"]
