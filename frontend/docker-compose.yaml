@@ -6,4 +6,4 @@ services:
     ports:
       - 80:3000
     volumes:
-      - ./node/src:/node/frontend/src
+      - ./node/src:/opt/frontend/src
