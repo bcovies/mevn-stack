@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 const validationSchema = yup.object({
   email: yup
@@ -30,7 +31,16 @@ const SingUp = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log('testando123')
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/user',
+        responseType: 'stream'
+      }).then(function (response) {
+        console.log(response)
+        alert(response)
+      });
+      alert('oi')
     },
   });
 
