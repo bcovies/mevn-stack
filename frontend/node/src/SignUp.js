@@ -31,16 +31,13 @@ const SingUp = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log('testando123')
       axios({
-        method: 'get',
-        url: 'http://localhost:8080/user',
-        responseType: 'stream'
+        method: 'post',
+        url: 'http://127.0.0.1:8080/user/signup',
+        data: values
       }).then(function (response) {
-        console.log(response)
-        alert(response)
+        console.log(values)
       });
-      alert('oi')
     },
   });
 
