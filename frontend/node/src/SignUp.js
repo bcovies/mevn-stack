@@ -24,7 +24,7 @@ class NameForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Nome:
+          Nomee:
           <input type="text" value={this.state.value} onChange={this.handleNameChange} />
         </label>
         
