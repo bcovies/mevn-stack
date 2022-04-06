@@ -3,7 +3,7 @@ services:
   frontend:
     image: frontend
     environment:
-      - API_ENDPOINT=teste
+      - REACT_APP_API_ENDPOINT=teste
     build: .
     ports:
       - 80:3000
