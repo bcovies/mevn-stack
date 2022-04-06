@@ -30,13 +30,14 @@ const SingUp = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log(`VALOR: ${process.env.REACT_APP_API_ENDPOINT}`)
+      console.log(`VALOR: ${process.env.REACT_APP_API_ENDPOINT_PORT}`)
       axios({
         method: 'post',
         url: 'http://127.0.0.1:8080/user/signup',
         data: values
       }).then(function (response) {
         console.log(values)
-        console.log(process.env.REACT_APP_API_ENDPOINT)
       });
     },
   });
