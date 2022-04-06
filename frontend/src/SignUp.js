@@ -5,6 +5,8 @@ import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import env from 'react-dotenv';
+// const apiConfigs = require('./configs/apiConfigs');
 
 const validationSchema = yup.object({
   email: yup
@@ -38,6 +40,8 @@ const SingUp = () => {
       }).then(function (response) {
         console.log(values)
       });
+      console.log(env.API_ENDPOINT);
+    // console.log(apiConfigs.apiConfigurations.apiEndpoint);
     },
   });
 
