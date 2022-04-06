@@ -2,10 +2,10 @@ FROM node:17
 
 WORKDIR /opt/backend
 
-COPY ./node/package* ./
+COPY package* ./
 
 RUN npm install
 
-COPY ./node/src ./src
+COPY . ./
 
 CMD [ "npm", "run", "startDev"]

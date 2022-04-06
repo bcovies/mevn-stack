@@ -11,7 +11,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./node/src:/opt/backend/src:rw
+      - ./src:/opt/backend/src:rw
   mongo:
     image: mongo
     environment:
@@ -22,4 +22,4 @@ services:
       MONGO_INITDB_PASSWORD: mernPassword      
     volumes:
       - mongo:/data/db:rw
-      - ./init-mongodb.js:/docker-entrypoint-initdb.d/init-mongodb.js:ro
+      - ./mongo/init-mongodb.js:/docker-entrypoint-initdb.d/init-mongodb.js:ro

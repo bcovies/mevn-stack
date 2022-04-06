@@ -1,0 +1,12 @@
+# Hidden files
+.gitignore
+.dockerignore
+
+# Docker files
+Dockerfile
+docker-compose.yaml
+
+# Repository files
+README.md
+mongo/
+node_modules/

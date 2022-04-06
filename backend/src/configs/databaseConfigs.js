@@ -1,4 +1,4 @@
-require('dotenv').config({ path: 'src/configs/.env' });
+require('dotenv').config();
 
 exports.databaseConfigurations = {
     hostname: process.env.DB_HOST,
