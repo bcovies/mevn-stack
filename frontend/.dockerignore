@@ -1,7 +1,12 @@
+# Repository files
 node_modules
+README.md
+
+# Docker files
 Dockerfile
 docker-compose.yaml
 docker-compose.yml
-README.md
+
+# Hidden files
 .gitignore
 .dockerignore
