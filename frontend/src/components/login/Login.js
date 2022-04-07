@@ -30,6 +30,7 @@ class Login extends React.Component{
 
   handleSubmit() {
     checkUser(this.state.email,this.state.password);
+    
     alert('Email: ' + this.state.email + ' Senha: ' + this.state.password);
   }
 
