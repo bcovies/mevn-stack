@@ -1,20 +1,25 @@
 import React from 'react';
-import { Button, TextField, Box } from '@material-ui/core';
+import { Button, TextField, Box, Typography } from '@material-ui/core';
 
 const Login = () => {
 
   return (
     <>
-      <h2>Página de Login</h2>
       <Box
         display='flex'
         flexDirection='row'
         justifyContent='center'
         >
           <Box 
-            display='inline-flex'
+            display='flex'
             flexDirection='column'
+            justifyContent='center'
             >
+              <Typography 
+                variant="h3" component="h3"
+                >
+                  Login
+              </Typography>
               <TextField
                 id="email"
                 name="email"
