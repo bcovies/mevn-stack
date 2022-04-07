@@ -5,9 +5,9 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Dashboard from './routes/dashboard'
-import SignUp from './routes/signup'
-import Login from './routes/login'
+import Dashboard from './components/dashboard'
+import SignUp from './components/signup'
+import Login from './components/login'
 
 ReactDOM.render(
   <React.StrictMode>
