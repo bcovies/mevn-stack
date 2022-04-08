@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
-import checkUser from './controler';
+import checkResponseStatus from './controlers/userApiResponse';
 
 class Login extends React.Component{
   constructor(props){
@@ -28,10 +28,13 @@ class Login extends React.Component{
     });  
   }
 
-  handleSubmit() {
-    checkUser(this.state.email,this.state.password);
-    
-    alert('Email: ' + this.state.email + ' Senha: ' + this.state.password);
+  async handleSubmit() {
+    const responseStatus = await checkResponseStatus();
+    if(responseStatus == '200'){
+      console.log('Path is OK!');
+    }else{
+      console.log("Path isn't OK!");
+    }
   }
 
   render(){
