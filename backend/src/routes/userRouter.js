@@ -19,5 +19,7 @@ router.post('/signup', (req,res) => {
     res.send(`User registred: ${data}`);
 });
 
-
+router.post('/login', (req,res) => {
+    res.send('Login api');
+});
 module.exports = router;
