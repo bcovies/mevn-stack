@@ -47,12 +47,7 @@ class Register extends React.Component{
   async handleSubmit() {
     // console.log(this.state)
     const responseStatus = await sendUserRegistration(this.state);
-    console.log(responseStatus)
-    if(responseStatus === '200'){
-      console.log('Path is OK!');
-    }else{
-      console.log("Path isn't OK!");
-    }
+
   }
 
   render(){
