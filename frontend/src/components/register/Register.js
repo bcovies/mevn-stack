@@ -44,16 +44,22 @@ class Register extends React.Component{
     });  
   }
 
-  async handleSubmit() {
-    console.log(this.state)
-    const responseStatus = await sendUserRegistration(this.state);
-
+  async handleSubmit(event) {
+    try{
+      event.preventDefault(); 
+      console.log(this.state)
+      const responseStatus = await sendUserRegistration(this.state);
+      console.log( 'RESPONSE: ' + responseStatus);
+      alert(responseStatus);
+    } catch (e){
+      console.log(e)
+    }
   }
 
   render(){
     return (
       <>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={(event) => this.handleSubmit(event)}>
         <Box
           display='flex'
           flexDirection='row'
