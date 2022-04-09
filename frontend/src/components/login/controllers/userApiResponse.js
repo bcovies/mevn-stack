@@ -18,7 +18,6 @@ function checkResponseStatus(){
             });
         }
     );
-
 }
 
 module.exports = checkResponseStatus;

@@ -1,17 +1,21 @@
 import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
-import checkResponseStatus from './controllers/userApiResponse';
+import sendUserRegistration from './controllers/apiRegister';
 
-class Login extends React.Component{
+class Register extends React.Component{
   constructor(props){
     super(props);
     this.state = { 
       email: '',
-      password: ''
+      password: '',
+      dob: '',
+      phone: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeDob = this.handleChangeDob.bind(this);
+    this.handleChangePhone = this.handleChangePhone.bind(this);
   }
 
   handleChangeEmail(event) {    
@@ -20,16 +24,30 @@ class Login extends React.Component{
       email: event.target.value
     });  
   }
-  
+
   handleChangePassword(event) {    
     // console.log(event.target.value)
     this.setState({
       password: event.target.value
     });  
   }
+  handleChangeDob(event) {    
+    // console.log(event.target.value)
+    this.setState({
+      dob: event.target.value
+    });  
+  }
+  handleChangePhone(event) {    
+    // console.log(event.target.value)
+    this.setState({
+      phone: event.target.value
+    });  
+  }
 
   async handleSubmit() {
-    const responseStatus = await checkResponseStatus();
+    // console.log(this.state)
+    const responseStatus = await sendUserRegistration(this.state);
+    console.log(responseStatus)
     if(responseStatus === '200'){
       console.log('Path is OK!');
     }else{
@@ -54,7 +72,7 @@ class Login extends React.Component{
                   <Typography 
                     variant="h3" component="h3"
                     >
-                      Login
+                      Register
                   </Typography>
                   <TextField
                     id="email"
@@ -67,16 +85,33 @@ class Login extends React.Component{
                   <TextField
                     id="password"
                     name="password"
-                    label="Senha"
+                    label="Password"
                     type="password"
-                    // value={this.state.password} 
+                    // value={this.state.email} 
                     onChange={this.handleChangePassword}
                   />
+                  <TextField
+                    id="dob"
+                    name="dob"
+                    label="Day of birth"
+                    type="date"
+                    // value={this.state.email} 
+                    onChange={this.handleChangeDob}
+                  />
+                  <TextField
+                    id="phone"
+                    name="phone"
+                    label="Phone"
+                    type="phone"
+                    // value={this.state.email} 
+                    onChange={this.handleChangePhone}
+                  />
+                                    
                   <Button 
                     variant="contained"
                     type='submit'
                     >
-                      Login!
+                      Register!
                   </Button>
             </Box>
           </Box>
@@ -86,4 +121,4 @@ class Login extends React.Component{
   }
 }
 
-export default Login;
+export default Register;

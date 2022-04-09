@@ -6,7 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import Dashboard from './components/dashboard'
-import SignUp from './components/signup'
+import Register from './components/register'
 import Login from './components/login'
 
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
     <BrowserRouter>
         <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="signup" element={<SignUp />} />
+        <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         </Routes>
     </BrowserRouter>

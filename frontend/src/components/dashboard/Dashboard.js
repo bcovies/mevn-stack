@@ -9,7 +9,7 @@ const Dashboard = () => {
       </h2>
       <Link to="/login">Login</Link>
       <br/>
-      <Link to="/signup">SignUp</Link>
+      <Link to="/register">Register</Link>
     </>
   );
 }
