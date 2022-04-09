@@ -4,8 +4,9 @@ const User = require('../models/userSchema');
   
 router.post('/register', async (req,res) => {
     const { email } = req.body;
+    console.log(req.body);
     try{
-        if( await User.findOne({ email })){
+        if( await User.findOne({ email }) ){
             return res.status(400).send({ error: 'User already registred'});
         }
         const user = await User.create(req.body);
@@ -15,7 +16,7 @@ router.post('/register', async (req,res) => {
         return res.status(400).send({
             error: 'Regstration failed'
         });
-    }
+    } 
 });
 
 module.exports = app => app.use('/auth', router);

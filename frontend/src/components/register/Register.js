@@ -45,7 +45,7 @@ class Register extends React.Component{
   }
 
   async handleSubmit() {
-    // console.log(this.state)
+    console.log(this.state)
     const responseStatus = await sendUserRegistration(this.state);
 
   }

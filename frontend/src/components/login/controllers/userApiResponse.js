@@ -3,7 +3,8 @@ const axios = require('axios');
 function checkResponseStatus(){
     return new Promise(
         returnPromise =>{
-            axios.get(`//${process.env.REACT_APP_API_ENDPOINT}:${process.env.REACT_APP_API_ENDPOINT_PORT}/user`)
+            const api_endpoint = process.env.REACT_APP_API_ENDPOINT;
+            axios.get(`//${api_endpoint}/user`)
             .then(function (response) {
                 // handle success
                 console.log(`Server Backend Response: ${response.status}`);
