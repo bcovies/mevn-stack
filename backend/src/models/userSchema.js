@@ -1,5 +1,5 @@
 //GLOBAL IMPORTS
-const mongoose = require('mongoose');
+const mongoose = require('../database/mongooseConnection');
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
