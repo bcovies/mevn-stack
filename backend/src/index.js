@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const serverConfigs = require('./configs/serverConfigs');
-const hostname = serverConfigs.configurations.hostname;
-const port = serverConfigs.configurations.port;
+const hostname = serverConfigs.hostname;
+const port = serverConfigs.port;
 
 const app = express();
 

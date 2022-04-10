@@ -1,8 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/userSchema');
-  
+const auth = require('../configs/tokenConfigs');
+
 router.post('/login', async (req,res) => {
     const { email, password } = req.body;
     if ( email || password == '' ){
@@ -32,10 +34,13 @@ router.post('/login', async (req,res) => {
                 error: "(2) - Password is wrong!"
             });
         }
-        
-        res.status(200).send({ user });
+        user.password = undefined;
+        const token = jwt.sign({ id: user.id }, auth.token, {
+            expiresIn: 3600
+        });
+        res.status(200).send({ user, token });
     } catch (error) {
-        
+        console.log(error)
     }
 });
 
