@@ -15,7 +15,7 @@ const userSchema = Schema({
         require: true,
         select: false,
     },
-    dbo: {
+    dob: {
         type: String,
         require: true,
     },
