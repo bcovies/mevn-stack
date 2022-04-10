@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
 import getUserToken from './controllers/getUserToken';
+import sendUserLogin from './controllers/sendUserLogin';
 
 class Login extends React.Component{
   constructor(props){
@@ -32,9 +33,10 @@ class Login extends React.Component{
     try{
       event.preventDefault();
       const dataResponse = await getUserToken(this.state);
-      console.log(dataResponse.status);
       if(dataResponse.status === 200){
         console.log('Path is OK!');
+        const loginResponse = await sendUserLogin(dataResponse.token);
+        console.log(loginResponse)
       }else{
         console.log("Path isn't OK!");
       }

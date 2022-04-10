@@ -4,7 +4,7 @@ module.exports = function(user){
     return new Promise(
         returnPromise =>{
             const api_endpoint = process.env.REACT_APP_API_ENDPOINT;
-            axios.post(`//${api_endpoint}/auth/login`, user)
+            axios.post(`//${api_endpoint}/auth/token`, user)
             .then(function (response) {
                 // handle success
                 returnPromise({
