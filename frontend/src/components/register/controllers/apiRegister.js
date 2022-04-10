@@ -8,11 +8,11 @@ function sendUserRegistration(user){
         axios.post(`http://${api_endpoint}/auth/register`, user)
         .then(function (response) {
           console.log(response);
-          returnPromise(response);
+          returnPromise(response.status);
         })
         .catch(function (error) {
           console.log(error);
-          returnPromise(error);
+          returnPromise(error.response.data);
         });
       } catch (err){
         console.log(err)

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
 import sendUserRegistration from './controllers/apiRegister';
+import redirectToLogin from './controllers/reactRedirect';
 
-class Register extends React.Component{
+class Register extends React.Component{  
   constructor(props){
     super(props);
     this.state = { 
@@ -44,13 +45,28 @@ class Register extends React.Component{
     });  
   }
 
+
   async handleSubmit(event) {
     try{
       event.preventDefault(); 
       const responseStatus = await sendUserRegistration(this.state);
-      // console.log('RESPONSE: ' + responseStatus);
+      console.log(responseStatus);
+      if( responseStatus == 200 ){
+        console.log('User registred with success!'); 
+        redirectToLogin();
+      } else{
+        console.log("User couldn't be registred!");
+        const errorSring = responseStatus.error
+        if(errorSring.includes("1")){
+          console.log("User already exists!");
+          alert("User already exists!");
+        } else if (errorSring.includes("2")){
+          console.log("Fail to register, report to support!");
+          alert("Fail to register, report to support!");
+        }
+      }
     } catch (e){
-      console.log(e)
+      console.log(e);
     }
   }
 

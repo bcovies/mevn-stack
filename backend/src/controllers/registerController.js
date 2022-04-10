@@ -7,14 +7,14 @@ router.post('/register', async (req,res) => {
     console.log(req.body);
     try{
         if( await User.findOne({ email }) ){
-            return res.status(400).send({ error: 'User already registred'});
+            return res.status(400).send({ error: '(1) - User already registred!'});
         }
         const user = await User.create(req.body);
         user.password = undefined; 
         return res.status(200).send({ user });
     } catch (error) {
         return res.status(400).send({
-            error: 'Regstration failed'
+            error: '(2) - Regstration failed'
         });
     }
 });
