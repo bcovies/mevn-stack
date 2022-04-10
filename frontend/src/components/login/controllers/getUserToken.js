@@ -1,18 +1,23 @@
 const axios = require('axios');
 
-function checkResponseStatus(){
+module.exports = function(user){
     return new Promise(
         returnPromise =>{
             const api_endpoint = process.env.REACT_APP_API_ENDPOINT;
-            axios.get(`//${api_endpoint}/user`)
+            axios.post(`//${api_endpoint}/auth/login`, user)
             .then(function (response) {
                 // handle success
-                console.log(`Server Backend Response: ${response.status}`);
-                returnPromise(response.status);
+                returnPromise({
+                    "token": response.data.token,
+                    "status": response.status
+                });
             })
             .catch(function (error) {
                 // handle error
-                console.log(`Server backend error: ${error}`);
+                returnPromise({
+                    "error": error.response.data.error,
+                    "status": error.response.status
+                });
             })
             .then(function () {
                 // always executed
@@ -20,5 +25,3 @@ function checkResponseStatus(){
         }
     );
 }
-
-module.exports = checkResponseStatus;
