@@ -1,9 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/userSchema');
-const auth = require('../configs/tokenConfigs');
+const jwtGenToken = require('./jwtGenToken');
 
 router.post('/login', async (req,res) => {
     const { email, password } = req.body;
@@ -35,9 +34,9 @@ router.post('/login', async (req,res) => {
             });
         }
         user.password = undefined;
-        const token = jwt.sign({ id: user.id }, auth.token, {
-            expiresIn: 3600
-        });
+
+        const token = jwtGenToken(user);
+        
         res.status(200).send({ user, token });
     } catch (error) {
         console.log(error)

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userSchema');
-  
+const jwtGenToken = require('./jwtGenToken');
+
 router.post('/register', async (req,res) => {
     const { email, password, dob, phone } = req.body;
     if ( email || password || dob ||phone == '' ){
@@ -32,7 +33,8 @@ router.post('/register', async (req,res) => {
         }
         const user = await User.create(req.body);
         user.password = undefined; 
-        return res.status(200).send({ user });
+        const token = jwtGenToken(user);
+        return res.status(200).send({ user, token });
     } catch (error) {
         return res.status(400).send({
             error: '(2) - Regstration failed!'
