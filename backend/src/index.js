@@ -20,8 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-require('./controllers/authStatusController')(app);
 require('./controllers/registerController')(app);
+require('./controllers/tokenController')(app);
 require('./controllers/loginController')(app);
 
 app.listen(port, () => {
