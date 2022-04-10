@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
 require('./controllers/registerController')(app);
+require('./controllers/loginController')(app);
 
 app.listen(port, () => {
   console.log(`Server ${hostname}:${port} Online!`);
