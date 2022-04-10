@@ -8,23 +8,8 @@ module.exports = function (req, res, next) {
             error: 'No token was provided'
         });
     }
-    const tokenHeaderParts = authHeader.split(' ');
 
-    if ( !tokenHeaderParts.length == 2 ){
-        return res.status(401).send({
-            error: 'The token provided has an error'
-        });
-    }
-
-    const [ tokenScheme , tokenHash ] = tokenHeaderParts; 
-    
-    if ( !/^Bearer$/i.test(tokenScheme) ){
-        return res.status(401).send({
-            error: 'Malformatted token'
-        })
-    }
-    
-    const authToken = jwtVerifyToken(res, tokenHash);
+    const authToken = jwtVerifyToken(res, authHeader);
     
     req.userId = authToken;  
     

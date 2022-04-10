@@ -7,6 +7,8 @@ module.exports = function(token){
             const transformToken = ""
             axios.get('//127.0.0.1:8080/auth/login',{
                 headers: {
+                    "x-dsi-restful":1,
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                   }
             }).
@@ -18,10 +20,7 @@ module.exports = function(token){
                 returnPromisse (response);
 
             }).catch (function(error){
-                console.log({
-                   "status": error.response.status,
-                   "data": error.response.data.error
-                });
+                
                 returnPromisse (error)
             });
     });
