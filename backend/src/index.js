@@ -1,6 +1,7 @@
 //GLOBAL IMPORTS
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const serverConfigs = require('./configs/serverConfigs');
 const hostname = serverConfigs.hostname;
@@ -8,13 +9,7 @@ const port = serverConfigs.port;
 
 const app = express();
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  // res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

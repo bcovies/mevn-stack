@@ -4,12 +4,11 @@ module.exports = function(token){
     return new Promise (
         returnPromisse => {
             console.log(token)
-            const transformToken = ""
-            axios.get('//127.0.0.1:8080/auth/login',{
+            const api_endpoint = process.env.REACT_APP_API_ENDPOINT;
+            axios.get(`//${api_endpoint}/auth/login`,{
                 headers: {
-                    "x-dsi-restful":1,
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `${token}`
                   }
             }).
             then(function(response){

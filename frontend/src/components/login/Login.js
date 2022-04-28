@@ -32,17 +32,16 @@ class Login extends React.Component{
   async handleSubmit(event) {
     try{
       event.preventDefault();
-        // const dataResponse = await getUserToken(this.state);
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTMwODVmN2EwNGJmNTllYzAwYzhiNCIsImlhdCI6MTY0OTYyNDcyMywiZXhwIjoxNjQ5NjI4MzIzfQ.m_n1Nyqxner-BpHUJQwqiDrQIaSvZebutB6gK3hYgbI"
-        const loginResponse = await sendUserLogin(token);
-        console.log(loginResponse)
-      // if(dataResponse.status === 200){
-      //   console.log('Path is OK!');
-      //   const loginResponse = await sendUserLogin(dataResponse.token);
-      //   console.log(loginResponse)
-      // }else{
-      //   console.log("Path isn't OK!");
-      // }
+      const dataResponse = await getUserToken(this.state);
+      if(dataResponse.status === 200){
+        const userToken = dataResponse.token;
+        console.log('User token: ' + userToken);
+      event.preventDefault();
+      const loginResponse = await sendUserLogin(dataResponse.token);
+        console.log('Login response'+loginResponse);
+      }
+
+
     }catch (e){
       console.log(e);
     }

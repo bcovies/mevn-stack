@@ -50,20 +50,18 @@ class Register extends React.Component{
       event.preventDefault(); 
       const responseStatus = await registerUser(this.state);
       console.log(responseStatus);
-      // if( responseStatus == 200 ){
-      //   console.log('User registred with success!'); 
-      //   redirectToLogin();
-      // } else{
-      //   console.log("User couldn't be registred!");
-      //   const errorSring = responseStatus.error
-      //   if(errorSring.includes("1")){
-      //     console.log("User already exists!");
-      //     alert("User already exists!");
-      //   } else if (errorSring.includes("2")){
-      //     console.log("Fail to register, report to support!");
-      //     alert("Fail to register, report to support!");
-      //   }
-      // }
+      if( responseStatus.status == 200 ){
+        console.log('User registred with success!'); 
+        alert(responseStatus.token);
+        redirectToLogin();
+      } else if (responseStatus.status == 400) {
+        console.log('Error!'); 
+        alert(responseStatus.error);
+      }
+      else {
+        console.log('Unkwon error!');
+        alert("Please contact our support team");
+      }
   }
 
   render(){
