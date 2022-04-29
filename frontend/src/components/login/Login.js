@@ -34,14 +34,9 @@ class Login extends React.Component{
       event.preventDefault();
       const dataResponse = await getUserToken(this.state);
       if(dataResponse.status === 200){
-        const userToken = dataResponse.token;
-        console.log('User token: ' + userToken);
       event.preventDefault();
       const loginResponse = await sendUserLogin(dataResponse.token);
-        console.log('Login response'+loginResponse);
       }
-
-
     }catch (e){
       console.log(e);
     }
