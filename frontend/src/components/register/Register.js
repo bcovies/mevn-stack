@@ -50,11 +50,11 @@ class Register extends React.Component{
       event.preventDefault(); 
       const responseStatus = await registerUser(this.state);
       console.log(responseStatus);
-      if( responseStatus.status == 200 ){
+      if( responseStatus.status === 200 ){
         console.log('User registred with success!'); 
         alert(responseStatus.token);
         redirectToLogin();
-      } else if (responseStatus.status == 400) {
+      } else if (responseStatus.status === 400) {
         console.log('Error!'); 
         alert(responseStatus.error);
       }
