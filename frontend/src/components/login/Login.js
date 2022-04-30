@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
 import getUserToken from './controllers/getUserToken';
 import sendUserLogin from './controllers/sendUserLogin';
+import { Navigate } from "react-router-dom";
 
-class Login extends React.Component{
+class Login extends React.Component{  
   constructor(props){
     super(props);
     this.state = { 
@@ -34,8 +35,8 @@ class Login extends React.Component{
       event.preventDefault();
       const dataResponse = await getUserToken(this.state);
       if(dataResponse.status === 200){
-      event.preventDefault();
-      const loginResponse = await sendUserLogin(dataResponse.token);
+        const loginResponse = await sendUserLogin(dataResponse.token);
+        console.log(loginResponse.data.userID);
       }
     }catch (e){
       console.log(e);
