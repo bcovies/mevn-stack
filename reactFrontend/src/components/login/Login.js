@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
 import getUserToken from './controllers/getUserToken';
 import sendUserLogin from './controllers/sendUserLogin';
-import { Navigate } from "react-router-dom";
+import Invoices  from "./controllers/Invoices";
 
 class Login extends React.Component{  
   constructor(props){
@@ -37,7 +37,8 @@ class Login extends React.Component{
       if(dataResponse.status === 200){
         const loginResponse = await sendUserLogin(dataResponse.token);
         console.log(loginResponse.data.userID);
-      }
+        <Invoices></Invoices>
+      } 
     }catch (e){
       console.log(e);
     }
