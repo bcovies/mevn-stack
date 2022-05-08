@@ -1,41 +1,17 @@
+<template>
+  <LoginFormComponent />
+</template>
+
 <script>
+// @ is an alias to /src
+import LoginFormComponent from "@/components/LoginFormComponent.vue";
+
 export default {
-  data() {
-    return {
-      email: "",
-      passwd: "",
-    };
-  },
-  methods: {
-    onInputEmail(e) {
-      this.email = e.target.value;
-    },
-    onInputPasswd(e) {
-      this.passwd = e.target.value;
-    },
-    onSubmitLogin() {
-      console.log("Sending to backend login informations...");
-      console.log(`${this.email}:${this.passwd}`);
-    },
+  //Nome da classe exportada, no caso AboutView.vue
+  name: "LoginView",
+  components: {
+    //Componentes que nela estão sendo utilizadas, neste caso, somente About.
+    LoginFormComponent,
   },
 };
 </script>
-
-<template>
-  <h1>Login page</h1>
-  <input
-    :value="email"
-    @input="onInputEmail"
-    type="email"
-    placeholder="Email"
-  />
-  <br />
-  <input
-    :value="passwd"
-    @input="onInputPasswd"
-    type="password"
-    placeholder="Password"
-  />
-  <br />
-  <button type="submit" @click="onSubmitLogin">Login</button>
-</template>
