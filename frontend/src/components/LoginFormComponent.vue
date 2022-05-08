@@ -1,9 +1,12 @@
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       email: "",
       passwd: "",
+      dob: "",
+      phone: "",
     };
   },
   methods: {
@@ -13,9 +16,31 @@ export default {
     onInputPasswd(e) {
       this.passwd = e.target.value;
     },
-    onSubmitLogin() {
-      console.log("Sending to backend login informations...");
-      console.log(`${this.email}:${this.passwd}`);
+    onInputDob(e) {
+      this.dob = e.target.value;
+    },
+    onInputPhone(e) {
+      this.phone = e.target.value;
+    },
+    async onSubmitLogin() {
+      console.log(
+        `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
+      );
+      console.log(`${this.email}:${this.passwd}:${this.dob}:${this.phone}`);
+      try {
+        const data = await axios.post(
+          `http://${process.env.VUE_APP_API_ENDPOINT}/auth/register`,
+          {
+            email: this.email,
+            passwd: this.passwd,
+            dob: this.passwd,
+            phone: this.passwd,
+          }
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
@@ -37,5 +62,14 @@ export default {
     placeholder="Password"
   />
   <br />
-  <button type="submit" @click="onSubmitLogin">Login</button>
+  <input
+    :value="dob"
+    @input="onInputDob"
+    type="text"
+    placeholder="Day of Birthday"
+  />
+  <br />
+  <input :value="phone" @input="onInputPhone" type="text" placeholder="Phone" />
+  <br />
+  <button @click="onSubmitLogin">Login</button>
 </template>
