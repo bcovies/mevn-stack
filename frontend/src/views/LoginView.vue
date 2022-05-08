@@ -1,5 +1,20 @@
+<script>
+export default {
+  data() {
+    return {
+      email: String,
+    };
+  },
+  methods: {
+    onInput(e) {
+      this.email = e.target.value;
+    },
+  },
+};
+</script>
+
 <template>
-  <div class="login">
-    <h1>This is an login page</h1>
-  </div>
+  <h1>Login page</h1>
+  <input :value="email" @input="onInput" type="email" placeholder="Email" />
+  <p>{{ email }}</p>
 </template>
