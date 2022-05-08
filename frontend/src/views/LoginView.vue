@@ -2,7 +2,7 @@
 export default {
   data() {
     return {
-      email: String,
+      email: "",
     };
   },
   methods: {
