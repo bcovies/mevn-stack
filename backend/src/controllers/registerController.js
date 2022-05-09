@@ -4,8 +4,16 @@ const User = require('../models/userSchema');
 const jwtGenToken = require('./jwtGenToken');
 
 router.post('/register', async (req,res) => {
+
+    if (req){
+        console.log('Incoming REQUEST');
+        console.log(req.headers)
+    }else{
+        res.send(503);
+    }
+
     const { email, password, dob, phone } = req.body;
-    if ( email || password || dob ||phone == '' ){
+    if ( email || password || dob || phone == '' ){
         if ( email == '' ) {
             return res.status(400).send({
                 error: '(3) - Missing email'
@@ -36,6 +44,7 @@ router.post('/register', async (req,res) => {
         const token = jwtGenToken(user);
         return res.status(200).send({ user, token });
     } catch (error) {
+        console.log(error);
         return res.status(400).send({
             error: '(2) - Regstration failed!'
         });
