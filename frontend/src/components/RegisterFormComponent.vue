@@ -7,6 +7,7 @@ export default {
       password: "",
       dob: "",
       phone: "",
+      registerMessage: "",
     };
   },
   methods: {
@@ -22,12 +23,8 @@ export default {
     onInputPhone(e) {
       this.phone = e.target.value;
     },
-    async onSubmitLogin() {
-      try {
-        console.log(
-          `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
-        );
-        console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
+    register() {
+      return new Promise((returnPromise) => {
         axios
           .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/register`, {
             email: this.email,
@@ -36,14 +33,31 @@ export default {
             phone: this.phone,
           })
           .then(function (response) {
-            console.log(response);
+            returnPromise({
+              status: response.status,
+              body: response.data,
+            });
           })
           .catch(function (error) {
-            console.log(error);
+            returnPromise({
+              status: error.response.status,
+              body: error.response.data,
+            });
           });
-        // console.log("Data: " + data);
-      } catch (error) {
-        console.log("Error: " + error);
+      });
+    },
+    async onSubmitLogin() {
+      console.log(
+        `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
+      );
+      console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
+      const data = await this.register();
+
+      if (data.status != "200") {
+        // alert("There was an error:" + data.body.error);
+        this.registerMessage = data.body.error;
+      } else {
+        this.registerMessage = "User registred with success!";
       }
     },
   },
@@ -53,6 +67,7 @@ export default {
 <template>
   <div>
     <h1>Register page</h1>
+    <h2>{{ registerMessage }}</h2>
     <form @submit.prevent="onSubmitLogin">
       <input
         :value="email"
