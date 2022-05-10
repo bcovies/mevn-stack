@@ -7,7 +7,8 @@ router.post('/register', async (req,res) => {
 
     if (req){
         console.log('Incoming REQUEST');
-        console.log(req.headers)
+        console.log(req.headers);
+        console.log(req.body);
     }else{
         res.send(503);
     }

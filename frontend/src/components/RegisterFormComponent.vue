@@ -4,7 +4,7 @@ export default {
   data() {
     return {
       email: "",
-      passwd: "",
+      password: "",
       dob: "",
       phone: "",
     };
@@ -13,8 +13,8 @@ export default {
     onInputEmail(e) {
       this.email = e.target.value;
     },
-    onInputPasswd(e) {
-      this.passwd = e.target.value;
+    onInputpassword(e) {
+      this.password = e.target.value;
     },
     onInputDob(e) {
       this.dob = e.target.value;
@@ -27,13 +27,13 @@ export default {
         console.log(
           `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
         );
-        console.log(`${this.email}:${this.passwd}:${this.dob}:${this.phone}`);
+        console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
         axios
           .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/register`, {
             email: this.email,
-            passwd: this.passwd,
-            dob: this.passwd,
-            phone: this.passwd,
+            password: this.password,
+            dob: this.dob,
+            phone: this.phone,
           })
           .then(function (response) {
             console.log(response);
@@ -62,8 +62,8 @@ export default {
       />
       <br />
       <input
-        :value="passwd"
-        @input="onInputPasswd"
+        :value="password"
+        @input="onInputpassword"
         type="password"
         placeholder="Password"
       />
