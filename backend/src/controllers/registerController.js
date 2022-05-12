@@ -17,28 +17,28 @@ router.post("/register", async (req,res) => {
 	if ( email || password || dob || phone == "" ){
 		if ( email == "" ) {
 			return res.status(400).send({
-				error: "(3) - Missing email"
+				error: "Missing email"
 			});
 		}
 		if ( password == "" ){
 			return res.status(400).send({
-				error: "(4) - Missing password"
+				error: "Missing password"
 			});
 		}
 		if ( dob == "" ){
 			return res.status(400).send({
-				error: "(5) - Missing day of birth"
+				error: "Missing day of birth"
 			});
 		}
 		if ( phone == "" ){
 			return res.status(400).send({
-				error: "(6) - Missing phone"
+				error: "Missing phone"
 			});
 		}
 	}
 	try{
 		if( await User.findOne({ email }) ){
-			return res.status(400).send({ error: "(1) - User already registred!"});
+			return res.status(400).send({ error: "User already registred!"});
 		}
 		const user = await User.create(req.body);
 		user.password = undefined; 
@@ -47,7 +47,7 @@ router.post("/register", async (req,res) => {
 	} catch (error) {
 		console.log(error);
 		return res.status(400).send({
-			error: "(2) - Regstration failed!"
+			error: "Regstration failed!"
 		});
 	}
 });

@@ -9,12 +9,12 @@ router.post("/token", async (req,res) => {
 	if ( email || password == "" ){
 		if ( email == "" ) {
 			return res.status(400).send({
-				error: "(3) - Missing email"
+				error: "Missing email"
 			});
 		}
 		if ( password == "" ){
 			return res.status(400).send({
-				error: "(4) - Missing password"
+				error: "Missing password"
 			});
 		}
 	}
@@ -24,13 +24,13 @@ router.post("/token", async (req,res) => {
            
 		if(!user){
 			return res.status(400).send({
-				error: "(1) - User doesn't exists"
+				error: "User doesn't exists"
 			});
 		}
 
 		if(! await bcrypt.compare(password, user.password)){
 			return res.status(400).send({
-				error: "(2) - Password is wrong!"
+				error: "Password is wrong!"
 			});
 		}
 		user.password = undefined;
