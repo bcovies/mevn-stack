@@ -47,7 +47,7 @@ export default {
             },
             {
               headers: {
-                token: `${token}`,
+                authorization: `${token}`,
               },
             }
           )
@@ -69,14 +69,20 @@ export default {
       console.log(
         `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
       );
-      console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
-      const data = await this.getToken();
+      console.log(`${this.email}:${this.password}`);
+      const token = await this.getToken();
 
-      if (data.status != "200") {
+      if (token.status != "200") {
         // alert("There was an error:" + data.body.error);
-        this.loginMessage = data.body.error;
+        this.loginMessage = token.body.error;
       } else {
-        const data = await this.login(data.body.token);
+        const data = await this.login(token.body.token);
+        if (data.status != "200") {
+          this.loginMessage = "User do not exists!";
+        } else {
+          this.loginMessage =
+            "User " + data.body.user.email + " logged! Being redirect soon!";
+        }
       }
     },
   },
