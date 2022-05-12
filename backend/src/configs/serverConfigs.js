@@ -1,6 +1,6 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
-    hostname: process.env.NODE_HOST,
-    port: process.env.NODE_PORT
+	hostname: process.env.NODE_HOST,
+	port: process.env.NODE_PORT
 };

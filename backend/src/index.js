@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-require("./controllers/registerController")(app);
-require("./controllers/tokenController")(app);
-require("./controllers/loginController")(app);
+const auth = require("./router/auth");
+
+app.use("/auth", auth);
 
 app.listen(port, () => {
 	console.log(`Server ${hostname}:${port} Online!`);

@@ -1,5 +1,5 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
-    secret: process.env.NODE_TOKEN,
+	secret: process.env.NODE_TOKEN,
 };
