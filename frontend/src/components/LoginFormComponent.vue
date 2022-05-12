@@ -82,6 +82,7 @@ export default {
         } else {
           this.loginMessage =
             "User " + data.body.user.email + " logged! Being redirect soon!";
+          this.$router.push("/about");
         }
       }
     },
