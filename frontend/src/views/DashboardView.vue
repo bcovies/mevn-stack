@@ -1,17 +1,17 @@
 <template>
-  <AboutComponent />
+  <DashboardComponent />
 </template>
 
 <script>
 // @ is an alias to /src
-import AboutComponent from "@/components/AboutComponent.vue";
+import DashboardComponent from "@/components/DashboardComponent.vue";
 
 export default {
   //Nome da classe exportada, no caso AboutView.vue
-  name: "AboutView",
+  name: "DashboardView",
   components: {
     //Componentes que nela estão sendo utilizadas, neste caso, somente About.
-    AboutComponent,
+    DashboardComponent,
   },
 };
 </script>

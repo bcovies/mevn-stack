@@ -1,5 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
+router.use(cookieParser());
+router.use(session({secret: "123",  resave: true,
+	saveUninitialized: true}));
+
+// const sessionAuth;
+
+var sessionAuth = "";
 
 // Home page route.
 router.get("/", function (req, res) {
@@ -95,7 +105,6 @@ router.post("/token", async (req,res) => {
 		user.password = undefined;
 
 		const token = jwtGenToken(user);
-        
 		res.status(200).send({ user, token });
 	} catch (error) {
 		console.log(error);
@@ -106,7 +115,21 @@ const authMiddleware = require("../middleware/auth");
 
 // Login page route.
 router.get("/login", authMiddleware, (req,res) => {
-	res.send ({ ok: true, userID: req.userId });
+    
+	sessionAuth = req.session;
+	sessionAuth.userId = req.userId;
+	console.log(sessionAuth);
+
+	res.status(200).send ({ ok: true, userID: req.userId });
+});
+
+router.get("/dashboard", (req,res) => {
+	console.log(sessionAuth);
+	if(sessionAuth.userId == undefined){
+		res.status(401).send({ error: "Not authorized, please login"});
+	}else {
+		res.status(200).send({ok:true});
+	}
 });
 
 module.exports = router;

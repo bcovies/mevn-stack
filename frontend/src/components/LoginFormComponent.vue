@@ -39,18 +39,11 @@ export default {
     login(token) {
       return new Promise((returnPromise) => {
         axios
-          .post(
-            `//${process.env.VUE_APP_API_ENDPOINT}/auth/token`,
-            {
-              email: this.email,
-              password: this.password,
+          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
+            headers: {
+              authorization: `${token}`,
             },
-            {
-              headers: {
-                authorization: `${token}`,
-              },
-            }
-          )
+          })
           .then(function (response) {
             returnPromise({
               status: response.status,
@@ -81,8 +74,8 @@ export default {
           this.loginMessage = "User do not exists!";
         } else {
           this.loginMessage =
-            "User " + data.body.user.email + " logged! Being redirect soon!";
-          this.$router.push("/about");
+            "User " + data.body.userId + " logged! Being redirect soon!";
+          this.$router.push("/dashboard");
         }
       }
     },
