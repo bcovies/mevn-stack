@@ -1,0 +1,38 @@
+{
+  "name": "mern-stack",
+  "version": "0.0.1",
+  "description": "Projeto inicial para estudo da stack MERN.",
+  "main": "src/index.js",
+  "scripts": {
+    "startDev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcovies/mern-stack.git"
+  },
+  "keywords": [
+    "mern"
+  ],
+  "author": "Bruno Souto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcovies/mern-stack/issues"
+  },
+  "homepage": "https://github.com/bcovies/mern-stack#readme",
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9"
+  }
+}

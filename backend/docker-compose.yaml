@@ -1,0 +1,25 @@
+version: '3.3'
+
+volumes:
+  mongo:
+services:
+  backend:
+    image: backend
+    build: .
+    depends_on: 
+      - mongo
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/opt/backend/src:rw
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: mernStack
+      MONGO_INITDB_USERNAME: mernUser
+      MONGO_INITDB_PASSWORD: mernPassword      
+    volumes:
+      - mongo:/data/db:rw
+      - ./mongo/init-mongodb.js:/docker-entrypoint-initdb.d/init-mongodb.js:ro
