@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   async mounted() {
     const data = await this.checkSession();
-    if (data.response.status != 200) {
+    if (data.status != 200) {
       this.$router.push("/error");
     }
   },
@@ -14,19 +14,17 @@ export default {
           .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/dashboard`)
           .then(function (response) {
             console.log(response);
-            // returnPromise({
-            //   status: response.status,
-            //   body: response.data,
-            // });
-            returnPromise(response);
+            returnPromise({
+              status: response.status,
+              body: response.data,
+            });
           })
           .catch(function (error) {
             console.log(error);
-            // returnPromise({
-            //   status: error.response.status,
-            //   body: error.response.data,
-            // });
-            returnPromise(error);
+            returnPromise({
+              status: error.response.status,
+              body: error.response.data,
+            });
           });
       });
     },
