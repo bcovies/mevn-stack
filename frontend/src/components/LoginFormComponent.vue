@@ -62,7 +62,7 @@ export default {
       console.log(
         `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
       );
-      console.log(`${this.email}:${this.password}`);
+      // console.log(`${this.email}:${this.password}`);
       const token = await this.getToken();
 
       if (token.status != "200") {

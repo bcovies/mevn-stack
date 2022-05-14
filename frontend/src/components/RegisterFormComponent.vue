@@ -50,7 +50,7 @@ export default {
       console.log(
         `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
       );
-      console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
+      // console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
       const data = await this.register();
 
       if (data.status != "200") {

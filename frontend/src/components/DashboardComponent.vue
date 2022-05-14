@@ -5,7 +5,14 @@ export default {
     const data = await this.checkSession();
     if (data.status != 200) {
       this.$router.push("/error");
+    } else {
+      this.userName = data.email;
     }
+  },
+  data() {
+    return {
+      userName: "",
+    };
   },
   methods: {
     checkSession() {
@@ -13,14 +20,14 @@ export default {
         axios
           .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/dashboard`)
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             returnPromise({
               status: response.status,
               body: response.data,
             });
           })
           .catch(function (error) {
-            console.log(error);
+            // console.log(error);
             returnPromise({
               status: error.response.status,
               body: error.response.data,
@@ -33,5 +40,7 @@ export default {
 </script>
 
 <template>
-  <h1>Dashboard page</h1>
+  <div>
+    <h1>Welcome, {{ userName }}</h1>
+  </div>
 </template>
