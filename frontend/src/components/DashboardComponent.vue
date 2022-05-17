@@ -6,7 +6,7 @@ export default {
     if (data.status != 200) {
       this.$router.push("/error");
     } else {
-      this.userName = data.email;
+      this.userName = data.body.user.email;
     }
   },
   data() {

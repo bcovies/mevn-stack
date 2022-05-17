@@ -129,7 +129,7 @@ router.get("/dashboard", async (req, res) => {
 	} else {
 		const email = sessionAuth.email;
 		console.log(email);
-		const user = await User.findOne(email);
+		const user = await User.findOne({ email: email})
 		console.log(user);
 		res.status(200).send({ user: user });
 	}
