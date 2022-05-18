@@ -1,43 +1,48 @@
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import axios from "axios";
-async function checkUserLogged() {
-  return new Promise((returnPromise) => {
-    axios
-      .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/test`)
-      .then(function (response) {
-        console.log(response);
-        returnPromise({
-          status: response.status,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-        returnPromise({
-          status: error.response.status,
-        });
-      });
-  });
-}
+
 export default {
+  data() {
+    return {
+      userLoggedVar: "",
+    };
+  },
+  methods: {
+    checkUserLogged() {
+      return new Promise((returnPromise) => {
+        axios
+          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/test`)
+          .then(function (response) {
+            console.log(response);
+            returnPromise({
+              status: response.status,
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            returnPromise({
+              status: error.response.status,
+            });
+          });
+      });
+    },
+  },
+  async mounted() {
+    this.userLoggedVar = await this.checkUserLogged();
+    // console.log(this.userLoggedVar.status);
+    if (this.userLoggedVar.status == 200) {
+      this.isLoged = true;
+    } else {
+      this.isLoged = false;
+    }
+    // console.log("teste" + this.isLoged);
+  },
   setup() {
-    const isLoged = ref(false);
-    onMounted(async (isLoged) => {
-      const userLoggedVar = await checkUserLogged();
-      console.log(userLoggedVar);
-      let aux = false;
-      if (userLoggedVar.status == 200) {
-        console.log("true");
-        aux = true;
-      } else {
-        console.log("false");
-        aux = false;
-      }
-      console.log(aux);
-      isLoged = ref(aux);
-      return isLoged;
-    });
-    return { isLoged };
+    const isLoged = ref(true);
+    return {
+      isLoged,
+    };
   },
 };
 </script>
@@ -47,15 +52,13 @@ export default {
     <div v-if="isLoged">
       <router-link to="/dashboard">dashboard</router-link> |
       <router-link to="/logout">logout</router-link>
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Regiser</router-link>
     </div>
     <div v-else>
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Regiser</router-link>
     </div>
+    <router-view />
   </nav>
-  <router-view />
 </template>
 
 <style>
