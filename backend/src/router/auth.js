@@ -121,26 +121,35 @@ router.get("/login", authMiddleware, (req, res) => {
 });
 
 router.get("/dashboard", async (req, res) => {
-	if (sessionAuth.userId == undefined || sessionAuth.userId == "") {
+	if (sessionAuth == undefined || sessionAuth == "") {
 		res.status(401).send({ error: "Not authorized, please login" });
 		sessionAuth = undefined;
 	} else {
 		const email = sessionAuth.email;
-		console.log(email);
+		// console.log(email);
 		const user = await User.findOne({ email: email })
-		console.log(user);
+		// console.log(user);
 		res.status(200).send({ user: user });
 	}
 });
 
 router.get("/logout", async (req, res) => {
-	if (sessionAuth.userId == undefined || sessionAuth.userId == "") {
+	if (sessionAuth == undefined || sessionAuth == "") {
 		res.status(401).send({ error: "Not authorized, please login" });
 		sessionAuth = undefined;
 	} else {
 		req.session.destroy(function (error) {
 			console.log(error);
 		})
+	}
+});
+
+router.get("/test", async (req, res) => {
+	if (sessionAuth == undefined || sessionAuth == "") {
+		res.status(401).send({ error: "Not authorized, please login" });
+		sessionAuth = undefined;
+	} else {
+		res.status(200).send({ ok: true });
 	}
 });
 

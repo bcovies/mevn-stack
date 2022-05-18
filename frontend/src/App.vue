@@ -1,7 +1,50 @@
-<script setup>
+<script>
 import { ref } from "vue";
-const isLoged = ref(true);
-console.log(isLoged);
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      userLoggedVar: "",
+    };
+  },
+  methods: {
+    checkUserLogged() {
+      return new Promise((returnPromise) => {
+        axios
+          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/test`)
+          .then(function (response) {
+            console.log(response);
+            returnPromise({
+              status: response.status,
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            returnPromise({
+              status: error.response.status,
+            });
+          });
+      });
+    },
+  },
+  async mounted() {
+    this.userLoggedVar = await this.checkUserLogged();
+    // console.log(this.userLoggedVar.status);
+    if (this.userLoggedVar.status == 200) {
+      this.isLoged = true;
+    } else {
+      this.isLoged = false;
+    }
+    // console.log("teste" + this.isLoged);
+  },
+  setup() {
+    const isLoged = ref(true);
+    return {
+      isLoged,
+    };
+  },
+};
 </script>
 
 <template>
@@ -14,8 +57,8 @@ console.log(isLoged);
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Regiser</router-link>
     </div>
+    <router-view />
   </nav>
-  <router-view />
 </template>
 
 <style>
