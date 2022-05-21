@@ -9,17 +9,12 @@ router.use(session({
 	saveUninitialized: true
 }));
 
-// const sessionAuth;
-
-var sessionAuth = "";
-
-// Home page route.
-router.get("/", function (req, res) {
-	res.send("auth home page");
-});
-
 const User = require("../models/userSchema");
 const jwtGenToken = require("../controllers/jwtGenToken");
+
+router.get("/", (req, res) => {
+	return res.status(200).send({ session: req.session });
+});
 
 // Register page route.
 router.post("/register", async (req, res) => {
@@ -53,8 +48,9 @@ router.post("/register", async (req, res) => {
 		}
 		const user = await User.create(req.body);
 		user.password = undefined;
-		const token = jwtGenToken(user);
-		return res.status(200).send({ user, token });
+		// const token = jwtGenToken(user);
+
+		return res.status(200).send("User registred with success");
 	} catch (error) {
 		console.log(error);
 		return res.status(400).send({
@@ -63,11 +59,10 @@ router.post("/register", async (req, res) => {
 	}
 });
 
-
 const bcrypt = require("bcrypt");
 
 // Token page route.
-router.post("/token", async (req, res) => {
+router.post("/login", async (req, res) => {
 	const { email, password } = req.body;
 	if (email || password == "") {
 		if (email == "") {
@@ -98,58 +93,39 @@ router.post("/token", async (req, res) => {
 		user.password = undefined;
 
 		const token = jwtGenToken(user);
-		sessionAuth = req.session;
-		sessionAuth.email = user.email;
 
-		console.log(sessionAuth);
-		res.status(200).send({ user, token });
+		req.session.email = user.email;
+		req.session.dob = user.dob;
+		req.session.phone = user.phone;
+		req.session.token = token;
+		req.session.save();
+		// console.log(req.session);
+		return res.status(200).send("User logged with success");
 
 	} catch (error) {
 		console.log(error);
+		return res.status(400).send({ error: error });
 	}
 });
 
 const authMiddleware = require("../middleware/auth");
 
-// Login page route.
-router.get("/login", authMiddleware, (req, res) => {
-
-	sessionAuth.userId = req.userId;
-	console.log(sessionAuth);
-
-	res.status(200).send({ ok: true, userID: req.userId });
-});
-
-router.get("/dashboard", async (req, res) => {
-	if (sessionAuth == undefined || sessionAuth == "") {
-		res.status(401).send({ error: "Not authorized, please login" });
-		sessionAuth = undefined;
-	} else {
-		const email = sessionAuth.email;
-		// console.log(email);
-		const user = await User.findOne({ email: email })
-		// console.log(user);
-		res.status(200).send({ user: user });
+router.get("/dashboard", authMiddleware, (req, res) => {
+	if (!req.session.token) {
+		console.log('Token inexistente');
+		res.status(401).send({ error: "Please, login" });
 	}
+	return res.status(200).send({ session: req.session });
 });
 
-router.get("/logout", async (req, res) => {
-	if (sessionAuth == undefined || sessionAuth == "") {
-		res.status(401).send({ error: "Not authorized, please login" });
-		sessionAuth = undefined;
-	} else {
-		req.session.destroy(function (error) {
-			console.log(error);
-		})
-	}
-});
+router.get("/logout", authMiddleware, (req, res) => {
+	req.session.destroy();
+	console.log(req.session);
 
-router.get("/test", async (req, res) => {
-	if (sessionAuth == undefined || sessionAuth == "") {
-		res.status(401).send({ error: "Not authorized, please login" });
-		sessionAuth = undefined;
+	if (req.session == "" || req.session == undefined) {
+		res.status(200).send("User succesfully logout: " + req.session);
 	} else {
-		res.status(200).send({ ok: true });
+		res.status(403).send("Internal Error. Could not logout!  :: " + req.session);
 	}
 });
 
