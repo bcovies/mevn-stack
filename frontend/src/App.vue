@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
 import { ref } from "vue";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ export default {
     checkUserLogged() {
       return new Promise((returnPromise) => {
         axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/session`)
+          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/`)
           .then(function (response) {
             // console.log(response);
             returnPromise({
@@ -29,14 +29,15 @@ export default {
     },
   },
   async mounted() {
-    this.userLoggedVar = await this.checkUserLogged();
-    // console.log(this.userLoggedVar.status);
-    console.log(Date.now());
-    if (this.userLoggedVar.status == 200) {
-      this.isLoged = true;
-    } else {
-      this.isLoged = false;
-    }
+    console.log(this.$storage.getStorageSync("token"));
+    // this.userLoggedVar = await this.checkUserLogged();
+    // // console.log(this.userLoggedVar.status);
+    // console.log(Date.now());
+    // if (this.userLoggedVar.status == 200) {
+    //   this.isLoged = true;
+    // } else {
+    //   this.isLoged = false;
+    // }
     // console.log("teste" + this.isLoged);
   },
   setup() {
@@ -46,7 +47,7 @@ export default {
     };
   },
 };
-</script> -->
+</script>
 
 <template>
   <!-- <nav>

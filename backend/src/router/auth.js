@@ -100,7 +100,7 @@ router.post("/login", async (req, res) => {
 		req.session.token = token;
 		req.session.save();
 		// console.log(req.session);
-		return res.status(200).send("User logged with success");
+		return res.status(200).send({ session: req.session });
 
 	} catch (error) {
 		console.log(error);

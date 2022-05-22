@@ -15,18 +15,18 @@ export default {
     onInputpassword(e) {
       this.password = e.target.value;
     },
-    login(token) {
+    loginGetToken() {
       return new Promise((returnPromise) => {
         axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
-            headers: {
-              authorization: `${token}`,
-            },
+          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
+            email: this.email,
+            password: this.password,
           })
           .then(function (response) {
+            console.log(response);
             returnPromise({
               status: response.status,
-              body: response.data,
+              body: response.data.session,
             });
           })
           .catch(function (error) {
@@ -37,26 +37,42 @@ export default {
           });
       });
     },
+    // login(token) {
+    //   return new Promise((returnPromise) => {
+    //     axios
+    //       .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
+    //         headers: {
+    //           authorization: `${token}`,
+    //         },
+    //       })
+    //       .then(function (response) {
+    //         returnPromise({
+    //           status: response.status,
+    //           body: response.data,
+    //         });
+    //       })
+    //       .catch(function (error) {
+    //         returnPromise({
+    //           status: error.response.status,
+    //           body: error.response.data,
+    //         });
+    //       });
+    //   });
+    // },
     async onSubmitLogin() {
       console.log(
         `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
       );
       // console.log(`${this.email}:${this.password}`);
-      const token = await this.getToken();
+      const token = await this.loginGetToken();
 
       if (token.status != "200") {
         // alert("There was an error:" + data.body.error);
         this.loginMessage = token.body.error;
       } else {
-        console.log(token.body.token);
-        const data = await this.login(token.body.token);
-        if (data.status != "200") {
-          this.loginMessage = "User do not exists!";
-        } else {
-          this.loginMessage =
-            "User " + data.body.userId + " logged! Being redirect soon!";
-          this.$router.push("/dashboard");
-        }
+        // console.log(token.body.token);
+        this.$storage.setStorageSync("token", token.body.token);
+        console.log(this.$storage.getStorageSync("token"));
       }
     },
   },
