@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { ref } from "vue";
 import axios from "axios";
 
@@ -12,15 +12,15 @@ export default {
     checkUserLogged() {
       return new Promise((returnPromise) => {
         axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/test`)
+          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/session`)
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             returnPromise({
               status: response.status,
             });
           })
           .catch(function (error) {
-            console.log(error);
+            // console.log(error);
             returnPromise({
               status: error.response.status,
             });
@@ -31,6 +31,7 @@ export default {
   async mounted() {
     this.userLoggedVar = await this.checkUserLogged();
     // console.log(this.userLoggedVar.status);
+    console.log(Date.now());
     if (this.userLoggedVar.status == 200) {
       this.isLoged = true;
     } else {
@@ -45,10 +46,10 @@ export default {
     };
   },
 };
-</script>
+</script> -->
 
 <template>
-  <nav>
+  <!-- <nav>
     <div v-if="isLoged">
       <router-link to="/dashboard">dashboard</router-link> |
       <router-link to="/logout">logout</router-link>
@@ -58,7 +59,14 @@ export default {
       <router-link to="/register">Regiser</router-link>
     </div>
     <router-view />
+  </nav> -->
+  <nav>
+    <router-link to="/dashboard">Dashboard</router-link> |
+    <router-link to="/logout">Logout</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link to="/register">Regiser</router-link>
   </nav>
+  <router-view />
 </template>
 
 <style>

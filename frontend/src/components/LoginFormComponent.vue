@@ -15,27 +15,6 @@ export default {
     onInputpassword(e) {
       this.password = e.target.value;
     },
-    getToken() {
-      return new Promise((returnPromise) => {
-        axios
-          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
-            email: this.email,
-            password: this.password,
-          })
-          .then(function (response) {
-            returnPromise({
-              status: response.status,
-              body: response.data,
-            });
-          })
-          .catch(function (error) {
-            returnPromise({
-              status: error.response.status,
-              body: error.response.data,
-            });
-          });
-      });
-    },
     login(token) {
       return new Promise((returnPromise) => {
         axios
@@ -69,6 +48,7 @@ export default {
         // alert("There was an error:" + data.body.error);
         this.loginMessage = token.body.error;
       } else {
+        console.log(token.body.token);
         const data = await this.login(token.body.token);
         if (data.status != "200") {
           this.loginMessage = "User do not exists!";
