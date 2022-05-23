@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -15,36 +16,15 @@ export default {
     onInputpassword(e) {
       this.password = e.target.value;
     },
-    getToken() {
+    loginGetToken() {
       return new Promise((returnPromise) => {
         axios
-          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
+          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
             email: this.email,
             password: this.password,
           })
           .then(function (response) {
-            returnPromise({
-              status: response.status,
-              body: response.data,
-            });
-          })
-          .catch(function (error) {
-            returnPromise({
-              status: error.response.status,
-              body: error.response.data,
-            });
-          });
-      });
-    },
-    login(token) {
-      return new Promise((returnPromise) => {
-        axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
-            headers: {
-              authorization: `${token}`,
-            },
-          })
-          .then(function (response) {
+            // console.log(response);
             returnPromise({
               status: response.status,
               body: response.data,
@@ -63,20 +43,14 @@ export default {
         `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
       );
       // console.log(`${this.email}:${this.password}`);
-      const token = await this.getToken();
+      const token = await this.loginGetToken();
 
       if (token.status != "200") {
         // alert("There was an error:" + data.body.error);
         this.loginMessage = token.body.error;
       } else {
-        const data = await this.login(token.body.token);
-        if (data.status != "200") {
-          this.loginMessage = "User do not exists!";
-        } else {
-          this.loginMessage =
-            "User " + data.body.userId + " logged! Being redirect soon!";
-          this.$router.push("/dashboard");
-        }
+        this.$storage.setStorageSync("token", token.body.token);
+        this.$router.push({ path: "/dashboard", replace: true });
       }
     },
   },

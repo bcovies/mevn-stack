@@ -1,6 +1,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export default {
   data() {
@@ -11,16 +12,22 @@ export default {
   methods: {
     checkUserLogged() {
       return new Promise((returnPromise) => {
+        const URL = `//${process.env.VUE_APP_API_ENDPOINT}/auth/`;
+        const config = {
+          headers: {
+            authorization: this.$storage.getStorageSync("token"),
+          },
+        };
         axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/test`)
+          .get(URL, config)
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             returnPromise({
               status: response.status,
             });
           })
           .catch(function (error) {
-            console.log(error);
+            // console.log(error);
             returnPromise({
               status: error.response.status,
             });
@@ -28,15 +35,16 @@ export default {
       });
     },
   },
-  async mounted() {
-    this.userLoggedVar = await this.checkUserLogged();
-    // console.log(this.userLoggedVar.status);
-    if (this.userLoggedVar.status == 200) {
-      this.isLoged = true;
-    } else {
+  async beforeMount() {
+    // console.log(this.$storage.getStorageSync("token"));
+    // location.reload();
+    const response = await this.checkUserLogged();
+    if (response.status != 200) {
       this.isLoged = false;
+    } else {
+      this.isLoged = true;
     }
-    // console.log("teste" + this.isLoged);
+    console.log(response);
   },
   setup() {
     const isLoged = ref(true);
@@ -54,6 +62,7 @@ export default {
       <router-link to="/logout">logout</router-link>
     </div>
     <div v-else>
+      <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Regiser</router-link>
     </div>
