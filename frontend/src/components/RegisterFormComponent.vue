@@ -25,13 +25,15 @@ export default {
     },
     register() {
       return new Promise((returnPromise) => {
+        const URL = `//${process.env.VUE_APP_API_ENDPOINT}/auth/register`;
+        const data = {
+          email: this.email,
+          password: this.password,
+          dob: this.dob,
+          phone: this.phone,
+        };
         axios
-          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/register`, {
-            email: this.email,
-            password: this.password,
-            dob: this.dob,
-            phone: this.phone,
-          })
+          .post(URL, data)
           .then(function (response) {
             returnPromise({
               status: response.status,
@@ -47,9 +49,9 @@ export default {
       });
     },
     async onSubmitRegister() {
-      console.log(
-        `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
-      );
+      // console.log(
+      //   `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
+      // );
       // console.log(`${this.email}:${this.password}:${this.dob}:${this.phone}`);
       const data = await this.register();
 
@@ -58,6 +60,7 @@ export default {
         this.registerMessage = data.body.error;
       } else {
         this.registerMessage = "User registred with success!";
+        this.$router.push("/login");
       }
     },
   },

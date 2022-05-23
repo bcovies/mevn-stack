@@ -19,11 +19,11 @@ export default {
           .get(URL, config)
           .then(function (response) {
             returnPromise(response);
-            console.log(response);
+            // console.log(response);
           })
           .catch(function (error) {
             returnPromise(error);
-            console.log(error);
+            // console.log(error);
           });
       });
     },

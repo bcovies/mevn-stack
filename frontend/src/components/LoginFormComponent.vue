@@ -18,11 +18,13 @@ export default {
     },
     loginGetToken() {
       return new Promise((returnPromise) => {
+        const URL = `//${process.env.VUE_APP_API_ENDPOINT}/auth/login`;
+        const data = {
+          email: this.email,
+          password: this.password,
+        };
         axios
-          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
-            email: this.email,
-            password: this.password,
-          })
+          .post(URL, data)
           .then(function (response) {
             // console.log(response);
             returnPromise({
@@ -39,9 +41,9 @@ export default {
       });
     },
     async onSubmitLogin() {
-      console.log(
-        `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
-      );
+      // console.log(
+      //   `Sending to backend (${process.env.VUE_APP_API_ENDPOINT}) login informations...`
+      // );
       // console.log(`${this.email}:${this.password}`);
       const token = await this.loginGetToken();
 
