@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema");
 const jwtGenToken = require("../controllers/jwtGenToken");
-router.get("/", (req, res) => {
-	return res.status(200).send({ session: req.session });
-});
+
 
 // Register page route.
 router.post("/register", async (req, res) => {
@@ -98,6 +96,11 @@ router.post("/login", async (req, res) => {
 });
 
 const authMiddleware = require("../middleware/auth");
+
+
+router.get("/", authMiddleware, (req, res) => {
+	return res.status(200);
+});
 
 router.get("/dashboard", authMiddleware, (req, res) => {
 	return res.status(200).send(req.session);

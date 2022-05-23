@@ -12,8 +12,14 @@ export default {
   methods: {
     checkUserLogged() {
       return new Promise((returnPromise) => {
+        const URL = `//${process.env.VUE_APP_API_ENDPOINT}/auth/`;
+        const config = {
+          headers: {
+            authorization: this.$storage.getStorageSync("token"),
+          },
+        };
         axios
-          .get(`//${process.env.VUE_APP_API_ENDPOINT}/auth/`)
+          .get(URL, config)
           .then(function (response) {
             // console.log(response);
             returnPromise({
@@ -29,8 +35,15 @@ export default {
       });
     },
   },
-  async mounted() {
+  async beforeMount() {
     // console.log(this.$storage.getStorageSync("token"));
+    const response = await this.checkUserLogged();
+    if (response.status != 200) {
+      this.isLoged = false;
+    } else {
+      this.isLoged = true;
+    }
+    console.log(response);
   },
   setup() {
     const isLoged = ref(true);
@@ -42,25 +55,18 @@ export default {
 </script>
 
 <template>
-  <!-- <nav>
+  <nav>
     <div v-if="isLoged">
       <router-link to="/dashboard">dashboard</router-link> |
       <router-link to="/logout">logout</router-link>
     </div>
     <div v-else>
+      <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Regiser</router-link>
     </div>
     <router-view />
-  </nav> -->
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/dashboard">Dashboard</router-link> |
-    <router-link to="/logout">Logout</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Regiser</router-link>
   </nav>
-  <router-view />
 </template>
 
 <style>
