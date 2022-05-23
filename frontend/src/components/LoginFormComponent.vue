@@ -18,15 +18,20 @@ export default {
     loginGetToken() {
       return new Promise((returnPromise) => {
         axios
-          .post(`//${process.env.VUE_APP_API_ENDPOINT}/auth/login`, {
-            email: this.email,
-            password: this.password,
-          })
+          .post(
+            `//${process.env.VUE_APP_API_ENDPOINT}/auth/login`,
+            {
+              email: this.email,
+              password: this.password,
+              // }
+            },
+            { withCredentials: true }
+          )
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             returnPromise({
               status: response.status,
-              body: response.data.session,
+              body: response.data,
             });
           })
           .catch(function (error) {
@@ -71,8 +76,11 @@ export default {
         this.loginMessage = token.body.error;
       } else {
         // console.log(token.body.token);
+        // this.$cookies.set("token", token.body.token);
+        // console.log(this.$cookies.get("token"));
         this.$storage.setStorageSync("token", token.body.token);
-        console.log(this.$storage.getStorageSync("token"));
+        this.$storage.setStorageSync("token123", token.body.token);
+        // console.log(this.$storage.getStorageSync("token"));
       }
     },
   },

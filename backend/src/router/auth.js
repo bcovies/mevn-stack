@@ -1,17 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
-
-router.use(cookieParser());
-router.use(session({
-	secret: "123", resave: true,
-	saveUninitialized: true
-}));
-
 const User = require("../models/userSchema");
 const jwtGenToken = require("../controllers/jwtGenToken");
-
 router.get("/", (req, res) => {
 	return res.status(200).send({ session: req.session });
 });
@@ -94,13 +84,13 @@ router.post("/login", async (req, res) => {
 
 		const token = jwtGenToken(user);
 
-		req.session.email = user.email;
-		req.session.dob = user.dob;
-		req.session.phone = user.phone;
 		req.session.token = token;
+		console.log(req.session);
+		console.log(req.sessionID);
+		
 		req.session.save();
-		// console.log(req.session);
-		return res.status(200).send({ session: req.session });
+
+		return res.status(200).send({ token: req.session.token });
 
 	} catch (error) {
 		console.log(error);
@@ -111,11 +101,9 @@ router.post("/login", async (req, res) => {
 const authMiddleware = require("../middleware/auth");
 
 router.get("/dashboard", authMiddleware, (req, res) => {
-	if (!req.session.token) {
-		console.log('Token inexistente');
-		res.status(401).send({ error: "Please, login" });
-	}
-	return res.status(200).send({ session: req.session });
+	console.log(req.session);
+	console.log(req.sessionID);
+	return res.status(200);
 });
 
 router.get("/logout", authMiddleware, (req, res) => {
