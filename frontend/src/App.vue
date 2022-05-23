@@ -1,6 +1,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export default {
   data() {
@@ -29,16 +30,7 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$storage.getStorageSync("token"));
-    // this.userLoggedVar = await this.checkUserLogged();
-    // // console.log(this.userLoggedVar.status);
-    // console.log(Date.now());
-    // if (this.userLoggedVar.status == 200) {
-    //   this.isLoged = true;
-    // } else {
-    //   this.isLoged = false;
-    // }
-    // console.log("teste" + this.isLoged);
+    // console.log(this.$storage.getStorageSync("token"));
   },
   setup() {
     const isLoged = ref(true);

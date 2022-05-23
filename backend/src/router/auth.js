@@ -85,12 +85,11 @@ router.post("/login", async (req, res) => {
 		const token = jwtGenToken(user);
 
 		req.session.token = token;
-		console.log(req.session);
-		console.log(req.sessionID);
-		
+		req.session.email = email;
+		// console.log(req.session);
+		// console.log(req.sessionID);		
 		req.session.save();
-
-		return res.status(200).send({ token: req.session.token });
+		return res.status(200).send(req.session);
 
 	} catch (error) {
 		console.log(error);
@@ -101,9 +100,7 @@ router.post("/login", async (req, res) => {
 const authMiddleware = require("../middleware/auth");
 
 router.get("/dashboard", authMiddleware, (req, res) => {
-	console.log(req.session);
-	console.log(req.sessionID);
-	return res.status(200);
+	return res.status(200).send(req.session);
 });
 
 router.get("/logout", authMiddleware, (req, res) => {

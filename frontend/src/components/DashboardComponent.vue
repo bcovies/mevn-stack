@@ -2,13 +2,13 @@
 import axios from "axios";
 export default {
   async mounted() {
-    console.log("token do dashboard: " + this.$storage.getStorageSync("token"));
+    // console.log("token do dashboard: " + this.$storage.getStorageSync("token"));
     const data = await this.checkSession();
     if (data.status != 200) {
       // this.$router.push("/error");
       console.log("User not authorized!");
     } else {
-      this.userName = data.body.user.email;
+      this.userName = data.body.email;
     }
   },
   data() {
@@ -26,17 +26,16 @@ export default {
           },
         };
         axios
-          .get(URL, config, { withCredentials: true })
+          .get(URL, config)
           .then(function (response) {
-            console.log("Dashboard response: ");
-            console.log(response);
+            // console.log(response);
             returnPromise({
               status: response.status,
               body: response.data,
             });
           })
           .catch(function (error) {
-            console.log(error);
+            // console.log(error);
             returnPromise({
               status: error.response.status,
               body: error.response.data,
