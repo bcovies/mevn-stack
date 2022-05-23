@@ -50,6 +50,7 @@ export default {
         this.loginMessage = token.body.error;
       } else {
         this.$storage.setStorageSync("token", token.body.token);
+        this.$router.push({ path: "/dashboard", replace: true });
       }
     },
   },

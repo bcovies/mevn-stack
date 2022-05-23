@@ -5,7 +5,7 @@ export default {
     // console.log("token do dashboard: " + this.$storage.getStorageSync("token"));
     const data = await this.checkSession();
     if (data.status != 200) {
-      // this.$router.push("/error");
+      this.$router.push("/");
       console.log("User not authorized!");
     } else {
       this.userName = data.body.email;

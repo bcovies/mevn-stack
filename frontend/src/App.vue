@@ -37,6 +37,7 @@ export default {
   },
   async beforeMount() {
     // console.log(this.$storage.getStorageSync("token"));
+    // location.reload();
     const response = await this.checkUserLogged();
     if (response.status != 200) {
       this.isLoged = false;
